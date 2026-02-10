@@ -1,10 +1,25 @@
-{% render 'partials/head.liquid', title: 'Squad page' %}
+{% render 'partials/head.liquid' %}
 
-<h2>Students</h2>
-<ul>
-  {% for person in persons %}
-    <li><a href="/student/{{ person.id }}">{{ person.name }}</a></li>
-  {% endfor %}
-</ul>
+<header>
+  <nav>
+    <ul>
+      <li><a href=""><img src="/fdnd-logo.png" alt=""></a></li>
+      <li><a href="">Notivicaties</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="overview">
+  <ul>
+    {% for person in persons %}
+      <li class="card">
+        <img src="{% if person.avatar %}{{ person.avatar }}{% else %}/missing-avatar.png{% endif %}" alt="">
+
+        <a href="/student/{{ person.id }}">{{ person.name }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+
 
 {% render 'partials/foot.liquid', squads: squads %}

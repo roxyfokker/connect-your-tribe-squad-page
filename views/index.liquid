@@ -21,16 +21,31 @@
   <ul>
     {% for person in persons %}
       <li class="card" data-color="{{ person.fav_color }}">
-
-        <figure>
-          <img src="{% if person.avatar %}{{ person.avatar }}{% else %}/missing-avatar.png{% endif %}" alt="">
-          <!--<img scr="{% if person.mugshot %}{{ person.mugshot }}{% else %}/missing-avatar.png{% endif %}" alt="">-->
-          <span class="emoji-container">{{  person.fav_emoji }}</span>
-        </figure>
-        <div class="card-text">
-          <a href="/student/{{ person.id }}">{{ person.name }}</a>
-          <p>{{  person.role }}</p>
-        </div>
+        <details>
+          <!--Voorkant van het kaartje-->
+          <summary>
+            <figure class="card-visual">
+              <img src="{% if person.avatar %}{{ person.avatar }}{% else %}/missing-avatar.png{% endif %}" alt="">
+              <!--<img scr="{% if person.mugshot %}{{ person.mugshot }}{% else %}/missing-avatar.png{% endif %}" alt="">-->
+              <span class="emoji-container">{{  person.fav_emoji }}</span>
+            </figure>
+            <div class="card-text">
+              <a href="/student/{{ person.id }}">{{ person.name }}</a>
+              <p>{{  person.role }}</p>
+            </div>
+          </summary>
+          <!--Achterkant van het kaartje-->
+          <div class="card-back">
+            <p>naam: {{  person.name }}</p>
+            <p>
+              {% assign birthyear = person.birthdate | date: "%Y" | plus: 0 %}
+              {% assign currentyear = "now" | date: "%Y" | plus: 0 %}
+              {% assign age = currentyear | minus: birthyear %}
+              {{ age }} jaar
+            </p>
+            <p>{{  person.bio }}</p>
+          </div>
+        </details>
         
       </li>
     {% endfor %}

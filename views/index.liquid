@@ -9,12 +9,26 @@
   </nav>
 </header>
 
-<section class="overview-controls">
+<!--<section class="overview-controls">
   <label for="sortSelect">Sorteer op naam:</label>
   <select id="sortSelect">
     <option value="a-z">A → Z</option>
     <option value="z-a">Z → A</option>
   </select>
+</section>-->
+<section class="sorteer opties">
+  <p>sorteren op:</p>
+  <a href="/">naam</a>
+  <a href="/nickname">nickname</a>
+
+  <p>je hebt nu gesorteerd op: <strong> {{ sortInfo}} </strong></p>
+</section>
+
+<section class="filter opties">
+  <p>filteren op:</p>
+  <a href="/squad1I">squad1I</a>
+
+  <p>je hebt nu gesorteerd op: <strong> {{ sortInfo}} </strong></p>
 </section>
 
 <section class="overview">
@@ -22,6 +36,7 @@
     {% for person in persons %}
       <li class="card" data-color="{{ person.fav_color }}">
         <details>
+          
           <!--Voorkant van het kaartje-->
           <summary>
             <figure class="card-visual">
@@ -34,6 +49,7 @@
               <p>{{  person.role }}</p>
             </div>
           </summary>
+
           <!--Achterkant van het kaartje-->
           <div class="card-back">
             <p>naam: {{  person.name }}</p>

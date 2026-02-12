@@ -1,5 +1,10 @@
 /**/
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@font-face {
+    font-family: 'Milker';
+    src: url('/milker.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
 
 *{
     margin: 0;
@@ -14,13 +19,54 @@ html, body{
 
 ul,
 ol {
-  list-style: none; 
+    list-style: none; 
 }
 /*a {
   text-decoration: none;
   color: inherit; 
 }*/
 
+:root{
+    /* Basiskleuren */
+    --c-bg: #141313;
+    --c-moss: #6F8561;
+    --c-deepsea: #053947;
+    --c-tealwave: #226959;
+    --c-sunset: #F49843;
+    --c-amberglow:#E04900;
+    --c-flame: #9E1131;
+}
+/* Thema kleuren */
+.theme-1 {
+    background-color: var(--c-deepsea); 
+    color: var(--c-moss);               
+}
+
+.theme-2 {
+    background-color: var(--c-tealwave);
+    color: var(--c-deepsea);
+}
+
+.theme-3 {
+    background-color: var(--c-moss);
+    color: var(--c-tealwave);
+}
+
+.theme-4 {
+    background-color: var(--c-amberglow);
+    color: var(--c-sunset);
+}
+
+.theme-5 {
+    background-color: var(--c-flame);
+    color: var(--c-amberglow);
+}
+
+/* Typografie */
+h2{
+    font-family: 'Milker', sans-serif;
+    font-weight: bold;
+}
 
 
 /*styling header*/

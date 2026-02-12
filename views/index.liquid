@@ -1,6 +1,8 @@
 {% render 'partials/head.liquid' %}
-
-<form method="GET" action="/">
+<main>
+  <h1>{{ title }}</h1>
+  <!--
+  <form method="GET" action="/">
     <label>
       Zoek op naam
       <input type="text" name="name" placeholder="Typ een naam..."/>
@@ -9,67 +11,92 @@
     <button type="submit">Zoeken</button>
 
     <a href="/" class="reset-link">Reset</a>
-</form>
-
-<section class="sorteer opties">
-  <p>sorteren op:</p>
-  <a href="/?sort=az&squad={{ request.query.squad }}">A-Z</a>
-  <a href="/?sort=za&squad={{ request.query.squad }}">Z-A</a>
-
-  <p>je hebt nu gesorteerd op: <strong> {{ sortInfo }} </strong></p>
+  </form>
+  -->
+  
+  <!--
+    <section class="sorteer">
+    <details>
+        <summary>Sorteren op:</summary>
+        <ul>
+            <li>
+                <a href="/?sort=az&squad={{ request.query.squad }}">A-Z</a>
+            </li>
+            <li>
+                <a href="/?sort=za&squad={{ request.query.squad }}">Z-A</a>
+            </li>
+        </ul>
+    </details>
 </section>
+  -->
 
-<section class="filter opties">
-  <p>filteren op:</p>
-  <a href="/?squad=1I&sort={{ request.query.sort }}">1I</a>
-  <a href="/?squad=1J&sort={{ request.query.sort }}">1J</a>
+<section class="sorteer">
+    <h2>sorteren op:</h2>
+    <a href="/?sort=az&squad={{ request.query.squad }}">A-Z</a>
+    <a href="/?sort=za&squad={{ request.query.squad }}">Z-A</a>
 
-  <p>je hebt nu gefilterd op: <strong> {{ squadInfo }} </strong></p>
-</section>
+    <p>je hebt nu gesorteerd op: <strong> {{ sortInfo }} </strong></p>
 
+  </section>
+  
 
-<section class="overview">
-  <ul>
-    {% for person in persons %}
-      <li class="card" data-color="{{ person.fav_color }}">
-        <details>
-          
-          <!--Voorkant van het kaartje-->
-          <summary>
-            <figure class="card-visual">
+  <section class="filter">
+    <h2>filteren op:</h2>
+    <a href="/?squad=1I&sort={{ request.query.sort }}">1I</a>
+    <a href="/?squad=1J&sort={{ request.query.sort }}">1J</a>
 
-              {% if person.mugshot %}
-              <img src="https://fdnd.directus.app/assets/{{ person.mugshot }}?width=500" alt="Profile picture">
-              {% else %}
-              <img src="/missing-avatar.png" alt="No profile picture">
-              {% endif %}
+    <p>je hebt nu gefilterd op: <strong> {{ squadInfo }} </strong></p>
+  </section>
 
-              <span class="emoji-container">{{  person.fav_emoji }}</span>
-            </figure>
+    {% assign themes = "theme-1,theme-2,theme-3,theme-4,theme-5" | split: "," %}
+    <ul>
+      {% for person in persons %}
+        {% assign theme_class = themes[forloop.index0 | modulo: themes.size] %}
+          <li class="card {{ theme_class }}">
+            <details>
+              
+              <!--Voorkant van het kaartje-->
+              <summary>
 
-            <div class="card-text">
-              <h2><a href="/student/{{ person.id }}">{{ person.name }}</a></h2>
-              <p>{{  person.role }}</p>
-            </div>
-          </summary>
+                <h2>
+                  <a href="/student/{{ person.id }}">
+                    <!--https://learn.microsoft.com/nl-nl/power-pages/configure/liquid/liquid-filters?utm_source=chatgpt.com#split-->
+                    {% assign words = person.name | split: ' ' %}
+                    {% assign rest = words | slice: 1, words.size | join: ' ' %}
+                    {{ words.first }}
+                    <br>
+                    {{ rest }}
+                  </a>
+                </h2>
 
-          <!--Achterkant van het kaartje-->
-          <div class="card-back">
-            <p>naam: {{  person.name }}</p>
-            <p>
-              {% assign birthyear = person.birthdate | date: "%Y" | plus: 0 %}
-              {% assign currentyear = "now" | date: "%Y" | plus: 0 %}
-              {% assign age = currentyear | minus: birthyear %}
-              {{ age }} jaar
-            </p>
-            <p>{{  person.bio }}</p>
-          </div>
-        </details>
-        
-      </li>
-    {% endfor %}
-  </ul>
-</section>
+                <figure class="card-visual">
+                  {% if person.mugshot %}
+                  <img src="https://fdnd.directus.app/assets/{{ person.mugshot }}?width=500" alt="Profile picture">
+                  {% else %}
+                  <img src="/missing-avatar.png" alt="No profile picture">
+                  {% endif %}
+                </figure>
+              </summary>
+
+              <!--Achterkant van het kaartje-->
+              <div class="card-back">
+                <p> {{ person.nickname }}</p>
+                <p>
+                  {% assign birthyear = person.birthdate | date: "%Y" | plus: 0 %}
+                  {% assign currentyear = "now" | date: "%Y" | plus: 0 %}
+                  {% assign age = currentyear | minus: birthyear %}
+                  {{ age }} jaar
+                </p>
+
+                <p>{{  person.bio }}</p>
+              </div>
+            </details>
+            
+          </li>
+      {% endfor %}
+    </ul>
+</main>
+
 
 
 {% render 'partials/foot.liquid', squads: squads %}

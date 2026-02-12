@@ -1,35 +1,32 @@
 {% render 'partials/head.liquid' %}
 
-<header>
-  <nav>
-    <ul>
-      <li><a href=""><img src="/fdnd-logo.png" alt=""></a></li>
-      <li><a href="">Notivicaties</a></li>
-    </ul>
-  </nav>
-</header>
+<form method="GET" action="/">
+    <label>
+      Zoek op naam
+      <input type="text" name="name" placeholder="Typ een naam..."/>
+    </label>
 
-<!--<section class="overview-controls">
-  <label for="sortSelect">Sorteer op naam:</label>
-  <select id="sortSelect">
-    <option value="a-z">A → Z</option>
-    <option value="z-a">Z → A</option>
-  </select>
-</section>-->
+    <button type="submit">Zoeken</button>
+
+    <a href="/" class="reset-link">Reset</a>
+</form>
+
 <section class="sorteer opties">
   <p>sorteren op:</p>
-  <a href="/">naam</a>
-  <a href="/nickname">nickname</a>
+  <a href="/?sort=az&squad={{ request.query.squad }}">A-Z</a>
+  <a href="/?sort=za&squad={{ request.query.squad }}">Z-A</a>
 
-  <p>je hebt nu gesorteerd op: <strong> {{ sortInfo}} </strong></p>
+  <p>je hebt nu gesorteerd op: <strong> {{ sortInfo }} </strong></p>
 </section>
 
 <section class="filter opties">
   <p>filteren op:</p>
-  <a href="/squad1I">squad1I</a>
+  <a href="/?squad=1I&sort={{ request.query.sort }}">1I</a>
+  <a href="/?squad=1J&sort={{ request.query.sort }}">1J</a>
 
-  <p>je hebt nu gesorteerd op: <strong> {{ sortInfo}} </strong></p>
+  <p>je hebt nu gefilterd op: <strong> {{ squadInfo }} </strong></p>
 </section>
+
 
 <section class="overview">
   <ul>
@@ -40,10 +37,16 @@
           <!--Voorkant van het kaartje-->
           <summary>
             <figure class="card-visual">
-              <img src="{% if person.avatar %}{{ person.avatar }}{% else %}/missing-avatar.png{% endif %}" alt="">
-              <!--<img scr="{% if person.mugshot %}{{ person.mugshot }}{% else %}/missing-avatar.png{% endif %}" alt="">-->
+
+              {% if person.mugshot %}
+              <img src="https://fdnd.directus.app/assets/{{ person.mugshot }}?width=500" alt="Profile picture">
+              {% else %}
+              <img src="/missing-avatar.png" alt="No profile picture">
+              {% endif %}
+
               <span class="emoji-container">{{  person.fav_emoji }}</span>
             </figure>
+
             <div class="card-text">
               <a href="/student/{{ person.id }}">{{ person.name }}</a>
               <p>{{  person.role }}</p>

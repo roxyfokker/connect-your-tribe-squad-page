@@ -16,18 +16,18 @@
   
   <!--
     <section class="sorteer">
-    <details>
-        <summary>Sorteren op:</summary>
-        <ul>
-            <li>
-                <a href="/?sort=az&squad={{ request.query.squad }}">A-Z</a>
-            </li>
-            <li>
-                <a href="/?sort=za&squad={{ request.query.squad }}">Z-A</a>
-            </li>
-        </ul>
-    </details>
-</section>
+      <details>
+          <summary>Sorteren op:</summary>
+          <ul>
+              <li>
+                  <a href="/?sort=az&squad={{ request.query.squad }}">A-Z</a>
+              </li>
+              <li>
+                  <a href="/?sort=za&squad={{ request.query.squad }}">Z-A</a>
+              </li>
+          </ul>
+      </details>
+  </section>
   -->
 
 <section class="sorteer">
@@ -51,7 +51,7 @@
     {% assign themes = "theme-1,theme-2,theme-3,theme-4,theme-5" | split: "," %}
     <ul>
       {% for person in persons %}
-        {% assign theme_class = themes[forloop.index0 | modulo: themes.size] %}
+        {% assign theme_class = themes[forloop.index0 | module: themes.size] %}
           <li class="card {{ theme_class }}">
             <details>
               
@@ -73,7 +73,7 @@
                   {% if person.mugshot %}
                   <img src="https://fdnd.directus.app/assets/{{ person.mugshot }}?width=500" alt="Profile picture">
                   {% else %}
-                  <img src="/missing-avatar.png" alt="No profile picture">
+                  <img src="/missing-mugshot.png" alt="No profile picture">
                   {% endif %}
                 </figure>
               </summary>
@@ -87,8 +87,8 @@
                   {% assign age = currentyear | minus: birthyear %}
                   {{ age }} jaar
                 </p>
-
                 <p>{{  person.bio }}</p>
+                <iframe><!--https://developer.spotify.com/documentation/embeds/tutorials/using-the-iframe-api--></iframe>
               </div>
             </details>
             

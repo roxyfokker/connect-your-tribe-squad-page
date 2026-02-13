@@ -55,7 +55,6 @@ app.get('/', async function (request, response) {
     'filter[squads][squad_id][cohort]': '2526',
   }
 
-  
   let sortInfo
   let squadInfo = 'alle sqauds'
 

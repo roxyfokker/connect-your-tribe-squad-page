@@ -85,13 +85,17 @@ h1{
 h2{
     font-family: 'Milker', sans-serif;
     font-weight: bold;
+    font-size: 2rem;
     padding-bottom: 1rem;
+    @media (min-width:800px) {
+        font-size: clamp(1rem, 1.6vw, 1.6rem);
+    }
 }
 
 
 /*grid*/
 main{
-    width: 85%;
+    width: 90%;
     margin: auto;
     @media (min-width:800px) {
         display: grid;
@@ -177,6 +181,12 @@ ul{
         display: flex;
         justify-content: space-between;
         align-items: center;
+        backface-visibility: visible;
+        transition: .2s ease-out;
+        position: relative;
+        .card-back{
+            position: absolute;
+        }
     }
 }
 
@@ -187,9 +197,7 @@ ul{
     padding: 1rem 1.5rem;
     border: solid 0.3rem #000000;
     box-shadow: black 5px 5px 10px;
-    h2{
-        font-size: 2rem;
-    }
+
     figure{
         width: 4rem;
         aspect-ratio: 1 / 1;

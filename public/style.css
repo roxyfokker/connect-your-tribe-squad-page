@@ -188,6 +188,10 @@ ul{
             position: absolute;
         }
     }
+     @media (min-width:800px) {
+        
+     }
+
 }
 
 
@@ -223,8 +227,8 @@ ul{
         overflow: hidden;    
         figure{
             position: absolute;
-            bottom: 1rem;
-            right: 1rem;
+            top: 8rem;
+            right: -0.5rem;
         }
     }
 }

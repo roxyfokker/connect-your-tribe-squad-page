@@ -48,10 +48,10 @@
     <p>je hebt nu gefilterd op: <strong> {{ squadInfo }} </strong></p>
   </section>
 
-    {% assign themes = "theme-1,theme-2,theme-3,theme-4,theme-5" | split: "," %}
+   
     <ul>
       {% for person in persons %}
-        {% assign theme_class = themes[forloop.index0 | module: themes.size] %}
+        {% capture theme_class %}theme-{{ forloop.index0 | modulo: 5 | plus: 1 }}{% endcapture %}
           <li class="card {{ theme_class }}">
             <details>
               

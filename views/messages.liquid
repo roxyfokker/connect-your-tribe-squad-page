@@ -1,0 +1,25 @@
+{% render 'partials/head.liquid' %}
+
+<h1>Berichtenbord</h1>
+
+<!--Berichten die binnen komne-->
+<ol>
+    {% for message in messages %}
+    <li>{{  message }}</li>
+    {%endfor %}
+</ol>
+
+<!--formulier om bericht toe te voegen-->
+<form method="POST" action="/berichten">
+    <label>
+        Naam:
+        <input type="text" required>    
+    </label>
+    <label>
+        Bericht:
+        <input type="text" name="message" placeholder="typ je bericht ..." required>
+    </label>
+    <button type="submit">Verstuur</button>
+</form>
+
+{% render 'partials/foot.liquid', squads: squads %}

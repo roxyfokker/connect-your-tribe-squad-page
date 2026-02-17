@@ -1,6 +1,6 @@
 // Importeer het npm package Express (uit de door npm aangemaakte node_modules map)
 // Deze package is geïnstalleerd via `npm install`, en staat als 'dependency' in package.json
-import express from 'express'
+import express, { response } from 'express'
 
 // Importeer de Liquid package (ook als dependency via npm geïnstalleerd)
 import { Liquid } from 'liquidjs';
@@ -121,4 +121,21 @@ app.set('port', process.env.PORT || 8000)
 app.listen(app.get('port'), function () {
   // Toon een bericht in de console en geef het poortnummer door
   console.log(`Application started on http://localhost:${app.get('port')}`)
+})
+
+
+
+
+const messages = []
+
+app.get('/berichten', (req, res) => {
+  res.render('messages.liquid', { messages });
+});
+
+app.post('/berichten', async function(req, res) {
+  const newMessage = req.body.message;
+  if (newMessage){
+    messages.push(newMessage)
+  }
+  res.redirect('/berichten');
 })

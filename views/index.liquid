@@ -1,4 +1,5 @@
 {% render 'partials/head.liquid' %}
+
 <main>
   <h1>{{ title }}</h1>
   <!--
@@ -87,7 +88,7 @@
                   {% assign age = currentyear | minus: birthyear %}
                   {{ age }} jaar
                 </p>
-                <p>{{  person.bio }}</p>
+                <p>{{ person.bio }}</p>
                 <iframe><!--https://developer.spotify.com/documentation/embeds/tutorials/using-the-iframe-api--></iframe>
               </div>
             </details>
@@ -96,6 +97,10 @@
       {% endfor %}
     </ul>
 </main>
+
+<nav>
+  <a href="/berichten">Klik hier om een bericht achter te laten</a>
+</nav>
 
 
 

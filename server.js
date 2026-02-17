@@ -123,24 +123,43 @@ app.listen(app.get('port'), function () {
   console.log(`Application started on http://localhost:${app.get('port')}`)
 })
 
+app.get('/berichten', async function (request, response) {
+  const params = {
+    'filter[for]': 'roxy-demo'
+  }
 
+  const apiURL ='https://fdnd.directus.app/items/messages?' + new URLSearchParams(params)
+  const messagesResponse = await fetch(apiURL)
+  const messagesResponseJSON = await messagesResponse.json()
+  const messages = messagesResponseJSON.data
 
-
-const messages = []
-
-app.get('/berichten', (req, res) => {
-  res.render('messages.liquid', { messages });
+  response.render('messages.liquid', { messages });
 });
 
-app.post('/berichten', async function(req, res) {
-  const newMessage = req.body.message;
-  const from = req.body.from;
+app.post('/berichten', async function(request, response) {
+  
+  // Stuur een POST request naar de messages database
+  // Een POST request bevat ook extra parameters, naast een URL
+  await fetch('https://fdnd.directus.app/items/messages', {
 
-  if (newMessage && from){
-    messages.push({
-      from: from,
-      text: newMessage
-    })
-  }
-  res.redirect('/berichten');
+    // Overschrijf de standaard GET method, want ook hier gaan we iets veranderen op de server
+    method: 'POST',
+
+    // Geef de body mee als JSON string
+    body: JSON.stringify({
+      // Dit is zodat we ons bericht straks weer terug kunnen vinden met ons filter
+      for: 'roxy-demo',
+      // En dit is ons eerdere formulierveld
+      from: request.body.from,
+      text: request.body.message
+    }),
+
+    // En vergeet deze HTTP headers niet: hiermee vertellen we de server dat we JSON doorsturen
+    // (In realistischere projecten zou je hier ook authentication headers of een sleutel meegeven)
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    }
+
+  })
+   response.redirect('/berichten')
 })

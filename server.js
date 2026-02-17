@@ -134,8 +134,13 @@ app.get('/berichten', (req, res) => {
 
 app.post('/berichten', async function(req, res) {
   const newMessage = req.body.message;
-  if (newMessage){
-    messages.push(newMessage)
+  const from = req.body.from;
+
+  if (newMessage && from){
+    messages.push({
+      from: from,
+      text: newMessage
+    })
   }
   res.redirect('/berichten');
 })

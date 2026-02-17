@@ -236,3 +236,37 @@ ul{
 nav{
     color: white;
 }
+
+.berichtenbord{
+    background-color: var(--c-text);
+    box-shadow: black 5px 5px 10px;
+    border-radius: 1.5rem; 
+    padding: 1rem;
+    margin-top: 1rem;
+    ol{
+        background-color: var(--c-bg);
+        border-radius: 1rem; 
+        padding: 1rem;
+        li{
+            color: var(--c-text);
+        }
+    }
+    form{
+        margin-top: 1rem;
+        padding: 1rem;
+        background-color: var(--c-sunset);
+        border-radius: 0.5rem; 
+        input{
+            padding: 0.5rem;
+            border: none;
+            background-color: var(--c-text);
+            border-radius: 0.5rem; 
+        }
+        button{
+            padding: 0.5rem;
+            background-color: var(--c-amberglow);
+            border-radius: 0.5rem; 
+            border: none;
+        }
+    }
+}
